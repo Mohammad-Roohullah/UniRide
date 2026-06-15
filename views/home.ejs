@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carpool Home</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/home.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="logo">UniCarpool</div>
+
+        <div class="search-bar">
+          <input type="text" placeholder="Search routes..." id="searchInput" />
+        </div>
+
+        <div class="user-menu">
+          <a href="/dashboard" class="nav-icon" title="Dashboard">
+            <i class="fas fa-car"></i>
+          </a>
+          <div class="user-avatar" onclick="toggleMenu()">
+            <%= currentUser.avatar %>
+          </div>
+
+          <div class="dropdown-menu" id="userDropdown">
+            <a href="/profile/<%= currentUser.name %>" class="dropdown-item">
+              <i class="fas fa-user"></i> My Profile
+            </a>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item" onclick="logout()">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <h2>Available Carpools</h2>
+        <div class="posts-container">
+          <% if (posts.length === 0) { %>
+          <div class="no-posts">
+            <i
+              class="fas fa-car"
+              style="font-size: 2rem; margin-bottom: 10px"
+            ></i>
+            <p>No carpool posts available at the moment.</p>
+            <p>Be the first to create one!</p>
+          </div>
+          <% } else { %> <% posts.forEach(post => { const hasApplied =
+          post.applicants && post.applicants.some(app => app.applicant_uuid ===
+          currentUser.id); const isOwner = post.owners_uuid === currentUser.id;
+          %>
+          <div
+            class="post-card"
+            data-post-id="<%= post.post_uuid %>"
+            data-owner-id="<%= post.owners_uuid %>"
+          >
+            <% if (hasApplied) { %>
+            <span class="already-applied">Applied</span>
+            <% } %>
+
+            <div class="post-header">
+              <div class="post-owner-avatar">
+                <%= post.owner.name.charAt(0).toUpperCase() %>
+              </div>
+              <div class="post-owner-info">
+                <a href="/profile/<%= post.owner.name %>" class="profile-link">
+                  <strong><%= post.owner.name %></strong>
+                </a>
+                <div class="post-time">
+                  <i class="far fa-clock"></i> <%= post.created_at %>
+                </div>
+              </div>
+            </div>
+
+            <h3 class="post-route">
+              <i class="fas fa-route"></i> <%= post.route %> <% if
+              (post.alternate_route) { %>
+              <span
+                style="
+                  font-size: 0.9rem;
+                  color: var(--gray);
+                  display: block;
+                  margin-top: 5px;
+                "
+              >
+                or <%= post.alternate_route %>
+              </span>
+              <% } %>
+            </h3>
+
+            <div class="post-details">
+              <div class="post-detail">
+                <i class="fas fa-users"></i>
+                <span><%= post.seats_available %> seats left</span>
+              </div>
+              <div class="post-detail">
+                <i class="fas fa-coins"></i>
+                <span>Rs. <%= post.fare %></span>
+              </div>
+              <div class="post-detail">
+                <i class="fas fa-clock"></i>
+                <span><%= post.duration %></span>
+              </div>
+            </div>
+
+            <% if (isOwner) { %>
+            <button class="apply-btn btn-disabled" disabled>
+              <i class="fas fa-info-circle"></i> Your Post
+            </button>
+            <% } else if (hasApplied) { %>
+            <button class="apply-btn btn-disabled" disabled>
+              <i class="fas fa-check"></i> Already Applied
+            </button>
+            <% } else { %>
+            <button
+              class="apply-btn"
+              onclick="applyForRide('<%= post.post_uuid %>')"
+            >
+              <i class="fas fa-paper-plane"></i> Apply for Ride
+            </button>
+            <% } %>
+          </div>
+          <% }); %> <% } %>
+        </div>
+      </main>
+    </div>
+
+    <script src="/js/home.js"></script>
+  </body>
+</html>

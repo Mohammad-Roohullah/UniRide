@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apply for Ride</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/apply-form.css" />
+  </head>
+  <body>
+    <div class="modal-container">
+      <div class="modal-header">
+        <h2>Apply for Ride</h2>
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+      </div>
+
+      <form id="applyForm" method="POST" action="/apply/<%= postId %>">
+        <div class="form-group">
+          <label for="fare_offered">Your Offered Fare (PKR) *</label>
+          <input
+            type="number"
+            id="fare_offered"
+            name="fare_offered"
+            required
+            min="1"
+            value="<%= postFare %>"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="pickup_location">Your Pickup Location *</label>
+          <input
+            type="text"
+            id="pickup_location"
+            name="pickup_location"
+            required
+            placeholder="Where will you board the ride?"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Additional Notes (Optional)</label>
+          <textarea
+            id="notes"
+            name="notes"
+            rows="3"
+            placeholder="Any special requests or information"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn">
+          <i class="fas fa-paper-plane"></i> Submit Application
+        </button>
+      </form>
+    </div>
+
+    <script src="/js/apply-form.js"></script>
+  </body>
+</html>

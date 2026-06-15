@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= userInfo.name %>'s Dashboard</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="user-greeting">
+          <h1>Welcome, <%= userInfo.name %></h1>
+          <p>Manage your carpool posts and applications</p>
+          <a href="/home" class="back-link">← Back to Home</a>
+        </div>
+        <div class="stats-card">
+          <h3>Active Posts</h3>
+          <p><%= userInfo.active_post %>/2</p>
+        </div>
+      </header>
+
+      <% if (acceptedRide) { %>
+      <div class="accepted-ride">
+        <h3><i class="fas fa-check-circle"></i> Your Accepted Ride</h3>
+        <div style="display: flex; align-items: center; margin: 15px 0">
+          <div class="applicant-avatar">
+            <%= acceptedRide.owner.name.charAt(0).toUpperCase() %>
+          </div>
+          <div>
+            <strong><%= acceptedRide.owner.name %></strong>
+            <div style="font-size: 0.8rem; color: var(--gray)">
+              <i class="fas fa-clock"></i> <%= new
+              Date(acceptedRide.created_at).toLocaleString() %>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-left: 55px">
+          <p>
+            <i class="fas fa-route"></i> <strong>Route:</strong> <%=
+            acceptedRide.route %>
+          </p>
+          <% if (acceptedRide.alternate_route) { %>
+          <p style="margin-left: 20px; color: var(--gray)">
+            <i class="fas fa-arrow-right"></i> or <%=
+            acceptedRide.alternate_route %>
+          </p>
+          <% } %>
+          <p>
+            <i class="fas fa-coins"></i> <strong>Fare:</strong> Rs. <%=
+            acceptedRide.fare %>
+          </p>
+          <p>
+            <i class="fas fa-users"></i> <strong>Seats:</strong> <%=
+            acceptedRide.seats_available %> available
+          </p>
+
+          <% const myApplication = acceptedRide.applicants.find(a =>
+          a.applicant_uuid === userInfo.id); %> <% if (myApplication) { %>
+          <div
+            style="
+              margin-top: 10px;
+              padding: 10px;
+              background: white;
+              border-radius: 5px;
+            "
+          >
+            <p>
+              <i class="fas fa-map-marker-alt"></i>
+              <strong>Your Pickup:</strong> <%= myApplication.pickup_location %>
+            </p>
+            <p>
+              <i class="fas fa-hand-holding-usd"></i>
+              <strong>Your Offer:</strong> Rs. <%= myApplication.fare_offered %>
+            </p>
+            <% if (myApplication.notes) { %>
+            <p>
+              <i class="fas fa-sticky-note"></i> <strong>Notes:</strong> <%=
+              myApplication.notes %>
+            </p>
+            <% } %>
+          </div>
+          <% } %>
+        </div>
+      </div>
+      <% } %>
+
+      <h2 class="section-title">Your Carpool Posts</h2>
+
+      <% if (posts.length === 0) { %>
+      <div class="no-posts">
+        <p>You haven't created any carpool posts yet.</p>
+        <a href="/create-post" class="create-post-btn">
+          <i class="fas fa-plus"></i> Create Post
+        </a>
+      </div>
+      <% } else { %> <% posts.forEach(post => { %>
+      <div class="post-card" data-post-id="<%= post.post_uuid %>">
+        <div class="post-header">
+          <h3 class="post-route">
+            <i class="fas fa-route"></i> <%= post.route %> <% if
+            (post.alternate_route) { %>
+            <span style="font-size: 0.9rem; color: #6c757d">
+              (or <%= post.alternate_route %>)
+            </span>
+            <% } %>
+          </h3>
+          <div class="post-status">
+            <span
+              style="color: <%= post.seats_available > 0 ? 'var(--success)' : 'var(--danger)' %>"
+            >
+              <%= post.seats_available %> seats left
+            </span>
+          </div>
+        </div>
+
+        <div class="post-details">
+          <div class="post-detail">
+            <i class="fas fa-coins"></i>
+            <span>Fare: Rs. <%= post.fare %></span>
+          </div>
+          <div class="post-detail">
+            <i class="fas fa-clock"></i>
+            <span>Leaving Time: <%= post.duration %></span>
+          </div>
+          <div class="post-detail">
+            <i class="fas fa-calendar"></i>
+            <span
+              >Posted: <%= new Date(post.created_at).toLocaleDateString()
+              %></span
+            >
+          </div>
+        </div>
+
+        <% if (post.applicants.length > 0) { %>
+        <div class="applicants-list">
+          <h4>Applicants (<%= post.applicants.length %>)</h4>
+          <% post.applicants.forEach(applicant => { %>
+          <div
+            class="applicant-card <%= applicant.status %>"
+            data-applicant-id="<%= applicant.applicant_uuid %>"
+          >
+            <div class="applicant-info">
+              <div class="applicant-avatar">
+                <%= applicant.user_info.name.charAt(0).toUpperCase() %>
+              </div>
+              <div>
+                <p>
+                  <strong><%= applicant.user_info.name %></strong>
+                  <span class="status-badge status-<%= applicant.status %>">
+                    <%= applicant.status.toUpperCase() %>
+                  </span>
+                </p>
+                <p>
+                  Offering Rs. <%= applicant.fare_offered %> | Pickup: <%=
+                  applicant.pickup_location %>
+                </p>
+                <% if (applicant.notes) { %>
+                <p style="font-style: italic; margin-top: 5px">
+                  "<%= applicant.notes %>"
+                </p>
+                <% } %>
+              </div>
+            </div>
+            <% if (applicant.status === 'pending') { %>
+            <div class="applicant-actions">
+              <button class="btn btn-success accept-btn">
+                <i class="fas fa-check"></i> Accept
+              </button>
+              <button class="btn btn-danger reject-btn">
+                <i class="fas fa-times"></i> Reject
+              </button>
+            </div>
+            <% } %>
+          </div>
+          <% }); %>
+        </div>
+        <% } %> <% if (post.seats_available > 0) { %>
+        <div style="text-align: right; margin-top: 15px">
+          <a href="/edit-post/<%= post.post_uuid %>" class="btn btn-primary">
+            <i class="fas fa-edit"></i> Edit Post
+          </a>
+        </div>
+        <% } %>
+      </div>
+      <% }); %> <% if (userInfo.active_post < 2) { %>
+      <a href="/create-post" class="create-post-btn">
+        <i class="fas fa-plus"></i> Create Another Post
+      </a>
+      <% } %> <% } %> <% if (requestedPosts.length > 0) { %>
+      <h2 class="section-title">Your Ride Requests</h2>
+
+      <% requestedPosts.forEach(post => { %>
+      <div class="post-card your-request">
+        <div class="post-header">
+          <h3 class="post-route">
+            <i class="fas fa-route"></i> <%= post.route %> <% if
+            (post.alternate_route) { %>
+            <span style="font-size: 0.9rem; color: #6c757d">
+              (or <%= post.alternate_route %>)
+            </span>
+            <% } %>
+          </h3>
+          <div class="post-status">
+            <span
+              style="color: <%= post.status === 'accepted' ? 'var(--success)' : 'var(--primary)' %>"
+            >
+              <%= post.status.toUpperCase() %>
+            </span>
+          </div>
+        </div>
+
+        <div class="post-details">
+          <div class="post-detail">
+            <i class="fas fa-user"></i>
+            <a href="/profile/<%= post.owner.name %>" class="profile-link">
+              <strong><%= post.owner.name %></strong>
+            </a>
+          </div>
+          <div class="post-detail">
+            <i class="fas fa-coins"></i>
+            <span>Original Fare: Rs. <%= post.fare %></span>
+          </div>
+          <div class="post-detail">
+            <i class="fas fa-hand-holding-usd"></i>
+            <span
+              >Your Offer: Rs. <%= post.user_application.fare_offered %></span
+            >
+          </div>
+          <div class="post-detail">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Pickup: <%= post.user_application.pickup_location %></span>
+          </div>
+        </div>
+
+        <% if (post.status === 'pending') { %>
+        <div class="request-actions">
+          <button
+            class="btn btn-danger"
+            onclick="cancelRequest('<%= post.post_uuid %>')"
+          >
+            <i class="fas fa-times"></i> Cancel Request
+          </button>
+        </div>
+        <% } %>
+      </div>
+      <% }); %> <% } %>
+    </div>
+
+    <script src="/js/dashboard.js"></script>
+  </body>
+</html>

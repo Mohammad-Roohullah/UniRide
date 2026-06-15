@@ -1,0 +1,33 @@
+[
+  {
+    "post_uuid": "e7ea8aab-65f0-420a-b737-7cab4bf79bcb",
+    "owners_uuid": "ff6638de-a48a-42fe-8c6c-843705779b4a",
+    "seats_available": 4,
+    "fare": 150,
+    "duration": "7:15",
+    "created_at": "2025-04-26T19:10:36.882Z",
+    "route": "empress -> jinnah -> shah re faisal -> drig -> malir -> fast",
+    "alternate_route": null,
+    "applicants": [
+      {
+        "applicant_uuid": "9df8d7a0-6914-4008-9cd1-63344037b8c2",
+        "fare_offered": 150,
+        "pickup_location": "soldier bazar",
+        "notes": null,
+        "status": "accepted",
+        "applied_at": "2025-06-26T09:04:50.208Z"
+      }
+    ]
+  },
+  {
+    "post_uuid": "ca82b47e-0f8e-4da0-b140-0cd6b5f2cb0e",
+    "owners_uuid": "ae3db547-4cd7-470a-95f4-5d3d10f15a63",
+    "seats_available": 3,
+    "fare": 200,
+    "duration": "7:30",
+    "created_at": "2025-04-26T19:13:12.834Z",
+    "route": "malir cant -> malir 15 -> fast",
+    "alternate_route": null,
+    "applicants": []
+  }
+]

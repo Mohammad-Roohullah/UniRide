@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= name %>'s Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/profile.css">
+</head>
+<body>
+  <div class="profile-container">
+    <div class="profile-header">
+      <div class="profile-pic"><%= name.charAt(0).toUpperCase() %></div>
+      <div class="profile-info">
+        <h1><%= name %></h1>
+        <p><%= roll_no %> | <%= uni_id %></p>
+      </div>
+    </div>
+
+    <% if (message) { %>
+      <div class="message <%= message.type %>">
+        <%= message.text %>
+      </div>
+    <% } %>
+
+    <div class="vehicle-info">
+      <h3>Vehicle Information</h3>
+      
+      <% if (vehicle) { %>
+        <p><strong>Type:</strong> <%= vehicle.type %></p>
+        <p><strong>Model:</strong> <%= vehicle.model %></p>
+        <p><strong>Color:</strong> <%= vehicle.color %></p>
+        <% if (vehicle.plate) { %>
+          <p><strong>Plate:</strong> <%= vehicle.plate %></p>
+        <% } %>
+      <% } else { %>
+        <p>No vehicle information available</p>
+      <% } %>
+
+      <% if (isOwnProfile) { %>
+        <% if (vehicle) { %>
+          <a id="toggleForm" class="toggle-form">Update Vehicle Information</a>
+        <% } else { %>
+          <a id="toggleForm" class="toggle-form">Add Vehicle Information</a>
+        <% } %>
+
+        <form 
+          id="vehicleForm" 
+          action="/update-vehicle" 
+          method="POST" 
+          class="<% if (!vehicle) { %>hidden<% } %>"
+        >
+          <div class="form-group">
+            <label for="type">Vehicle Type</label>
+            <select id="type" name="type" required>
+              <option value="">Select vehicle type</option>
+              <option value="Car" <%= vehicle && vehicle.type === 'Car' ? 'selected' : '' %>>Car</option>
+              <option value="SUV" <%= vehicle && vehicle.type === 'SUV' ? 'selected' : '' %>>SUV</option>
+              <option value="Van" <%= vehicle && vehicle.type === 'Van' ? 'selected' : '' %>>Van</option>
+              <option value="Motorcycle" <%= vehicle && vehicle.type === 'Motorcycle' ? 'selected' : '' %>>Motorcycle</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="model">Model</label>
+            <input 
+              type="text" 
+              id="model" 
+              name="model" 
+              placeholder="e.g., Toyota Corolla" 
+              value="<%= vehicle ? vehicle.model : '' %>" 
+              required
+            >
+          </div>
+          
+          <div class="form-group">
+            <label for="color">Color</label>
+            <input 
+              type="text" 
+              id="color" 
+              name="color" 
+              placeholder="e.g., Red" 
+              value="<%= vehicle ? vehicle.color : '' %>" 
+              required
+            >
+          </div>
+          
+          <div class="form-group">
+            <label for="plate">License Plate (Optional)</label>
+            <input 
+              type="text" 
+              id="plate" 
+              name="plate" 
+              placeholder="e.g., ABC-123" 
+              value="<%= vehicle && vehicle.plate ? vehicle.plate : '' %>"
+            >
+          </div>
+          
+          <div class="action-buttons">
+            <button type="submit" class="btn btn-primary">
+              <%= vehicle ? 'Update' : 'Save' %> Vehicle
+            </button>
+            <% if (vehicle) { %>
+              <button type="button" id="removeVehicle" class="btn btn-danger">
+                Remove Vehicle
+              </button>
+            <% } %>
+          </div>
+        </form>
+      <% } %>
+    </div>
+
+    <a href="/home" class="back-link">← Back to Home</a>
+  </div>
+
+  <% if (isOwnProfile) { %>
+    <script>
+      document.getElementById('toggleForm').addEventListener('click', function() {
+        const form = document.getElementById('vehicleForm');
+        form.classList.toggle('hidden');
+        this.textContent = form.classList.contains('hidden') 
+          ? '<%= vehicle ? "Update" : "Add" %> Vehicle Information' 
+          : 'Cancel';
+      });
+
+      <% if (vehicle) { %>
+        document.getElementById('removeVehicle').addEventListener('click', function() {
+          if (confirm('Are you sure you want to remove your vehicle information? You won\'t be able to create carpool posts without it.')) {
+            window.location.href = '/remove-vehicle';
+          }
+        });
+      <% } %>
+    </script>
+  <% } %>
+</body>
+</html>

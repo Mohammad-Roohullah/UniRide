@@ -1,0 +1,106 @@
+[
+  {
+    "uuid": "ff6638de-a48a-42fe-8c6c-843705779b4a",
+    "name": "Mohammad Roohullah",
+    "roll_no": "23k-2083",
+    "uni_id": "k232083@nu.edu.pk",
+    "password": "123",
+    "phone": "12345678",
+    "active_post": 1,
+    "req_accepted_by": null,
+    "requested_on_posts": [],
+    "vehicle": {
+      "type": "Car",
+      "model": "Sonata n line",
+      "color": "black",
+      "plate": "123"
+    },
+    "post_ids": [
+      "e7ea8aab-65f0-420a-b737-7cab4bf79bcb"
+    ]
+  },
+  {
+    "uuid": "9df8d7a0-6914-4008-9cd1-63344037b8c2",
+    "name": "Kazim Raza",
+    "roll_no": "23k-2086",
+    "uni_id": "k232086@nu.edu.pk",
+    "password": "123",
+    "phone": "12345678",
+    "active_post": 0,
+    "req_accepted_by": "e7ea8aab-65f0-420a-b737-7cab4bf79bcb",
+    "requested_on_posts": [
+      "e7ea8aab-65f0-420a-b737-7cab4bf79bcb"
+    ],
+    "vehicle": null,
+    "post_ids": []
+  },
+  {
+    "uuid": "ae3db547-4cd7-470a-95f4-5d3d10f15a63",
+    "name": "faizan",
+    "roll_no": "23k-2064",
+    "uni_id": "k232064@nu.edu.pk",
+    "password": "123",
+    "phone": "12345678",
+    "active_post": 1,
+    "req_accepted_by": null,
+    "requested_on_posts": [],
+    "vehicle": {
+      "type": "Car",
+      "model": "Vitz",
+      "color": "blue",
+      "plate": "123"
+    },
+    "post_ids": [
+      "ca82b47e-0f8e-4da0-b140-0cd6b5f2cb0e"
+    ]
+  },
+  {
+    "uuid": "12f51b29-632f-4367-88d1-27e0dec45ea3",
+    "name": "hamza",
+    "roll_no": "23k-2069",
+    "uni_id": "k232069@nu.edu.pk",
+    "password": "123",
+    "phone": "12345678",
+    "active_post": 0,
+    "req_accepted_by": null,
+    "requested_on_posts": [],
+    "vehicle": {
+      "type": "Car",
+      "model": "Vitz",
+      "color": "blue",
+      "plate": "123"
+    },
+    "post_ids": []
+  },
+  {
+    "uuid": "8606ecf2-3493-414d-82c4-a0d1216de267",
+    "name": "fahad",
+    "roll_no": "23k-2045",
+    "uni_id": "k232045@nu.edu.pk",
+    "password": "123",
+    "phone": "12345678",
+    "active_post": 0,
+    "req_accepted_by": null,
+    "requested_on_posts": [],
+    "vehicle": {
+      "type": "Motorcycle",
+      "model": "honda 70",
+      "color": "black",
+      "plate": "123"
+    },
+    "post_ids": []
+  },
+  {
+    "uuid": "b3ee9ee2-47fe-48f0-a550-b62d34cd3d61",
+    "name": "ayaan",
+    "roll_no": "23k-2084",
+    "uni_id": "k232084@nu.edu.pk",
+    "password": "123",
+    "phone": "123",
+    "active_post": 0,
+    "req_accepted_by": null,
+    "requested_on_posts": [],
+    "vehicle": null,
+    "post_ids": []
+  }
+]

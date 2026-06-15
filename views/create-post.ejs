@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create New Post</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/create-post.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1><i class="fas fa-car"></i> Create Carpool Post</h1>
+
+      <form action="/create-post" method="POST">
+        <div class="form-group">
+          <label for="route">Primary Route *</label>
+          <input
+            type="text"
+            id="route"
+            name="route"
+            required
+            placeholder="e.g. Gulberg to NU Islamabad"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="alternate_route"
+            >Alternate Route <span class="optional">(optional)</span></label
+          >
+          <input
+            type="text"
+            id="alternate_route"
+            name="alternate_route"
+            placeholder="e.g. F-11 to NU via Kashmir Highway"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="fare">Fare per Person (PKR) *</label>
+          <input
+            type="number"
+            id="fare"
+            name="fare"
+            required
+            min="0"
+            placeholder="e.g. 200"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="duration">Leaving Time</label>
+          <input
+            type="text"
+            id="duration"
+            name="duration"
+            required
+            placeholder="e.g. 7:30"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="seats_available">Seats Available *</label>
+          <input
+            type="number"
+            id="seats_available"
+            name="seats_available"
+            required
+            min="1"
+            max="10"
+            placeholder="e.g. 3"
+          />
+        </div>
+
+        <button type="submit" class="btn">
+          <i class="fas fa-paper-plane"></i> Create Post
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carpool | Login/Signup</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/login_signup.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card" id="authCard">
+        <!-- Login Form (Front) -->
+        <div class="card-front">
+          <div class="logo">
+            <i class="fas fa-car"></i>
+            <h2>University Carpool</h2>
+          </div>
+
+          <form action="/login" method="POST">
+            <div class="form-group">
+              <label for="login-email">University Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="login-email"
+                name="uni_id"
+                placeholder="kXXXXXX@nu.edu.pk"
+                required
+              />
+              <i class="fas fa-envelope input-icon"></i>
+            </div>
+
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="login-password"
+                name="password"
+                placeholder="••••••••"
+                required
+              />
+              <i class="fas fa-lock input-icon"></i>
+            </div>
+
+            <button type="submit" class="btn">Login</button>
+          </form>
+
+          <div class="switch-text">
+            Don't have an account?
+            <button class="switch-btn" onclick="flipCard()">Sign Up</button>
+          </div>
+        </div>
+
+        <!-- Signup Form (Back) -->
+        <div class="card-back">
+          <div class="logo">
+            <i class="fas fa-user-plus"></i>
+            <h2>Create Account</h2>
+          </div>
+
+          <form action="/register" method="POST">
+            <div class="form-group">
+              <label for="signup-name">Full Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="signup-name"
+                name="name"
+                required
+              />
+              <i class="fas fa-user input-icon"></i>
+            </div>
+
+            <div class="form-group">
+              <label for="signup-roll"
+                >Roll Number
+                <span class="university-badge">2XK-XXXX</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="signup-roll"
+                name="roll_no"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="signup-email">University Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="signup-email"
+                name="uni_id"
+                placeholder="kXXXXXX@nu.edu.pk"
+                required
+              />
+              <i class="fas fa-envelope input-icon"></i>
+            </div>
+
+            <div class="form-group">
+              <label for="signup-password">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="signup-password"
+                name="password"
+                required
+              />
+              <i class="fas fa-lock input-icon"></i>
+            </div>
+
+            <div class="form-group">
+              <label for="signup-phone">Phone Number</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="signup-phone"
+                name="phone"
+                required
+              />
+              <i class="fas fa-phone input-icon"></i>
+            </div>
+
+            <button type="submit" class="btn">Register</button>
+          </form>
+
+          <div class="switch-text">
+            Already have an account?
+            <button class="switch-btn" onclick="flipCard()">Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/login_signup.js"></script>
+  </body>
+</html>
